@@ -1,0 +1,233 @@
+/* stylesheet.css */
+
+/* Reset und Basis-Layout */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #0a0a0a;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Tisch (Layout-Hintergrund) */
+.layout {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.teameinstellungen {
+  background-color: #2d2d2d;
+  border-radius: 40px;
+  padding: 2rem 1rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  border: 4px solid #444;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Teamnamen */
+.teamnamearea {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.teamnamearea a {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.teamnamearea input {
+  width: 80%;
+  max-width: 300px;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 2px solid #666;
+  background-color: #1a1a1a;
+  color: #fff;
+  text-align: center;
+}
+
+/* Becher-Gitter */
+.layouteinstellungen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.becher-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Becher-Stil (Gelb mit schwarzem Rand) */
+.becher {
+  width: 40px;
+  height: 40px;
+  background-color: #ffce00;
+  border: 2px solid #000;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(255, 255, 0, 0.3);
+}
+
+.selectedBecher {
+  outline: 2px solid white;
+  outline-offset: 2px;
+  box-shadow: 0 0 15px 5px rgba(255, 255, 0, 0.8), 0 0 10px white inset;
+  transform: scale(1.15);
+  transition: all 0.1s ease;
+}
+
+.getroffenerBecher {
+  background-color: #555; /* dunkelgrau statt gold */
+  border: 2px solid red;
+  position: relative;
+  opacity: 0.5;
+  box-shadow: 0 0 8px red;
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+}
+
+.getroffenerBecher::after {
+  content: "✕";
+  color: red;
+  font-weight: bold;
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Buttons */
+button {
+  background-color: #1e1e1e;
+  color: #fff;
+  border: 2px solid #555;
+  border-radius: 8px;
+  padding: 0.3rem 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+.addbutton,
+.removebutton {
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+}
+
+.hide-edit-buttons .addbutton,
+.hide-edit-buttons .removebutton {
+  display: none !important;
+}
+
+/* Buttonbereich zwischen den Teams */
+.buttonarea {
+  margin: 100px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+#spielenbutton button {
+  background-color: #2a9d8f;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 0.5rem 1.2rem;
+}
+
+#buttonrow {
+  display: flex;
+  gap: 0.8rem;
+}
+
+/* Unsichtbar */
+.versteckt {
+  display: none !important;
+}
+
+/* Mobiloptimierung */
+@media (max-width: 480px) {
+  .becher {
+    width: 30px;
+    height: 30px;
+  }
+
+  .addbutton,
+  .removebutton {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  #spielenbutton button {
+    font-size: 1rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .teamnamearea input {
+    width: 90%;
+  }
+
+  .teameinstellungen {
+    padding: 1rem;
+    border-radius: 30px;
+  }
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}

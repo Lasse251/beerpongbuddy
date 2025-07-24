@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beer Pong Body</title>
+    <link rel="stylesheet" href="stylesheet.css" />
+  </head>
+  <body>
+    <div class="spielbereich">
+      <div class="team" id="team-oben">
+        <div class="spieler-namen" id="spieler-oben">Spieler: Lasse, Josi</div>
+        <div class="becher-grid" id="becher-oben"></div>
+      </div>
+
+      <div class="steuerung">
+        <button id="einstellungen">⚙️</button>
+        <button id="treffer">Treffer</button>
+        <button id="rueckgaengig">Rückgängig</button>
+      </div>
+
+      <div class="team" id="team-unten">
+        <div class="becher-grid" id="becher-unten"></div>
+        <div class="spieler-namen" id="spieler-unten">
+          Spieler: Fabi, Tristan
+        </div>
+      </div>
+    </div>
+
+    <div class="popup" id="challenge-popup">
+      <p id="challenge-text"></p>
+      <button onclick="closePopup()">OK</button>
+    </div>
+
+    <script>
+      const challenges = [
+        "Mache 10 Liegestütze!",
+        "Erzähle ein peinliches Erlebnis!",
+        "Trinke doppelt!",
+        "Tausche ein Kleidungsstück mit einem Mitspieler!",
+        "Alle außer dir trinken!",
+      ];
+
+      let selectedBecher = null;
+      let becherState = []; // Array mit Bechern und ihrem Zustand
+
+      function createBecherGrid(id, count) {
+        const container = document.getElementById(id);
+        container.innerHTML = "";
+        for (let i = 0; i < count; i++) {
+          const b = document.createElement("div");
+          b.classList.add("becher");
+          b.dataset.id = id + "-" + i;
+          b.addEventListener("click", () => selectBecher(b));
+          becherState.push({ id: b.dataset.id, element: b, active: true });
+          container.appendChild(b);
+        }
+      }
+
+      function selectBecher(becher) {
+        if (selectedBecher) selectedBecher.classList.remove("selected");
+        selectedBecher = becher;
+        selectedBecher.classList.add("selected");
+      }
+
+      document.getElementById("treffer").addEventListener("click", () => {
+        if (selectedBecher) {
+          selectedBecher.classList.remove("selected");
+          selectedBecher.classList.add("aus");
+          selectedBecher.disabled = true;
+
+          const challenge =
+            challenges[Math.floor(Math.random() * challenges.length)];
+          document.getElementById("challenge-text").textContent = challenge;
+          document.getElementById("challenge-popup").style.display = "block";
+
+          selectedBecher = null;
+        }
+      });
+
+      document.getElementById("rueckgaengig").addEventListener("click", () => {
+        if (becherState.length > 0) {
+          const lastAus = becherState.findLast((b) => !b.active);
+          if (lastAus) {
+            lastAus.active = true;
+            lastAus.element.classList.remove("aus");
+          }
+        }
+      });
+
+      function closePopup() {
+        document.getElementById("challenge-popup").style.display = "none";
+      }
+
+      createBecherGrid("becher-oben", 10);
+      createBecherGrid("becher-unten", 10);
+    </script>
+  </body>
+</html>

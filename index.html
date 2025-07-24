@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beer Pong Body</title>
+    <link rel="stylesheet" href="stylesheet.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <div class="teameinstellungen">
+        <div class="teamnamearea">
+          <a>Spieler Team 1:</a>
+          <input type="text" id="inputTeam1" onchange="setTeamname(1)"/>
+          <a id="team1"></a>
+        </div>
+
+        <div class="layouteinstellungen">
+          <div class="becher-grid" id="becher-oben">
+            <div class="row">
+              <button class="removebutton">-</button>
+              <div class="becher" id="o1" onclick="selectBecher('o1')"></div>
+              <div class="becher" id="o2" onclick="selectBecher('o2')"></div>
+              <div class="becher" id="o3" onclick="selectBecher('o3')"></div>
+              <div class="becher" id="o4" onclick="selectBecher('o4')"></div>
+              <button class="addbutton">+</button>
+            </div>
+
+            <div class="row">
+              <button class="removebutton">-</button>
+              <div class="becher" id="o5" onclick="selectBecher('o5')"></div>
+              <div class="becher" id="o6" onclick="selectBecher('o6')"></div>
+              <div class="becher" id="o7" onclick="selectBecher('o7')"></div>
+              <div class="becher" id="o8" onclick="selectBecher('o8')"></div>
+              <button class="addbutton">+</button>
+            </div>
+
+            <div class="row">
+              <button class="removebutton">-</button>
+              <div class="becher" id="o9" onclick="selectBecher('o9')"></div>
+              <div class="becher" id="o10" onclick="selectBecher('o10')"></div>
+              <div class="becher" id="o11" onclick="selectBecher('o11')"></div>
+              <div class="becher" id="o12" onclick="selectBecher('o12')"></div>
+              <button class="addbutton">+</button>
+            </div>
+
+            <div class="row">
+              <button class="removebutton">-</button>
+              <div class="becher" id="o13" onclick="selectBecher('o13')"></div>
+              <div class="becher" id="o14" onclick="selectBecher('o14')"></div>
+              <div class="becher" id="o15" onclick="selectBecher('o15')"></div>
+              <div class="becher" id="o16" onclick="selectBecher('o16')"></div>
+              <button class="addbutton">+</button>
+            </div>
+          </div>
+          <div class="buttonarea">
+            <div id="spielenbutton">
+              <button onclick="showUI('spielen')">Spielen!</button>
+            </div>
+
+            <div class="versteckt" id="buttonrow">
+              <button id="einstellungen" onclick="showUI('einstellung')">
+                ⚙️
+              </button>
+              <button id="treffer" onclick="treffer()">Treffer</button>
+              <button id="rueckgaengig" onclick="refillBecher()">Befüllen</button>
+            </div>
+          </div>
+
+          <div class="becher-grid" id="becher-unten">
+            <div class="row">
+              <button class="removebutton">-</button>
+              <div class="becher" id="u1" onclick="selectBecher('u1')"></div>
+              <div class="becher" id="u2" onclick="selectBecher('u2')"></div>
+              <div class="becher" id="u3" onclick="selectBecher('u3')"></div>
+              <div class="becher" id="u4"  onclick="selectBecher('u4')"></div>
+              <button class="addbutton">+</button>
+            </div>
+
+            <div class="row">
+              <button class="removebutton">-</button>
+              <div class="becher" id="u5" onclick="selectBecher('u5')"></div>
+              <div class="becher" id="u6" onclick="selectBecher('u6')"></div>
+              <div class="becher" id="u7" onclick="selectBecher('u7')"></div>
+              <div class="becher" id="u8" onclick="selectBecher('u8')"></div>
+              <button class="addbutton">+</button>
+            </div>
+
+            <div class="row">
+              <button class="removebutton">-</button>
+              <div class="becher" id="u9" onclick="selectBecher('u9')"></div>
+              <div class="becher" id="u10" onclick="selectBecher('u10')"></div>
+              <div class="becher" id="u11" onclick="selectBecher('u11')"></div>
+              <div class="becher" id="u12" onclick="selectBecher('u12')"></div>
+              <button class="addbutton">+</button>
+            </div>
+
+            <div class="row">
+              <button class="removebutton">-</button>
+              <div class="becher" id="u13" onclick="selectBecher('u13')"></div>
+              <div class="becher" id="u14" onclick="selectBecher('u14')"></div>
+              <div class="becher" id="u15" onclick="selectBecher('u15')"></div>
+              <div class="becher" id="u16" onclick="selectBecher('u16')"></div>
+              <button class="addbutton">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="teamnamearea">
+          <a>Spieler Team 2:</a>
+          <input type="text" id="inputTeam2" onchange="setTeamname(2)"/>
+          <a id="team2"></a>
+        </div>
+      </div>
+    </div>
+
+    <div id="popup" class="popup versteckt">
+      <div class="popup-content">
+        <span id="popup-text">Treffer!</span><br>
+        <button onclick="closePopup()">OK</button>
+      </div>
+    </div>
+
+    <script>
+      let inSettings = true;
+      let selectedBecher;
+      let popUpTexte = ["Ihr müsst die nächsten drei 3 Würfe mit der schwachen Hand werfen!",
+                        "Jeder aus dem Team muss beim nächsten Wurf einen Trickshot machen!",
+                        "Dieses Bier muss auf jeden Fall auf Ex runtern! Wird abgesetzt, darf das gegnerische Team 4x als Strafe Werfen!",
+                        "Freibier! Trink das Bier aus, befülle es erneut und stelle es wieder an die Stelle!",
+                        "Underdog! Das Team mit weniger Bechern darf bei ihrem nächsten Wurf doppelt werfen. Habt ihr 2 Bälle -> 4x Werfen.",
+                        "Schicksalswurf! Wenn der nächste Becher getroffen wird, trinkt das Gegnerteam doppelt.",
+                        "Challenge accepted! Beim nächsten Wurf nur rückwärts über die Schulter werfen – beide Teams!",
+                        "Augen zu und durch! Der nächste Wurf muss blind erfolgen.",
+                        "Weitwurf! Gehe 2 Meter zurück beim nächsten Wurf. Viel Glück!",
+                        "Fieser Fremdwurf! Ein Spieler aus dem Gegnerteam wirft. Trift er, müsst ihr das Bier trinken, neu befüllen und an die selbe Stelle zurück stellen.",
+                        "VAR! Der Bierpong-Schiri hat einen Ellbogen über der Kante gesehen. Der Wurf muss wiederholt werden.",
+                        "Wiederbelebung! Das Team, welches getroffen hat, darf ein Bier wieder hinstellen. Sind noch alle Biere, ist das jetzt so wie alkoholfreies Bier - sinnlos.",
+                        "Formationswechsel! Das Team, welches getroffen hat, darf 2 Biere umstellen.",
+                        "Volltreffer! Alle Biere aus der Reihe müssen getrunken werden. Ist es nur eins - GLücl! Sind es vier - Pech!"
+                      ]
+
+      function showUI(component) {
+        const layout = document.querySelector(".layouteinstellungen");
+
+        if (component === "spielen") {
+          document.getElementById("buttonrow").classList.remove("versteckt");
+          document.getElementById("spielenbutton").classList.add("versteckt");
+          document.getElementById("inputTeam1").classList.add("versteckt");
+          document.getElementById("inputTeam2").classList.add("versteckt");
+          document.getElementById("team1").classList.remove("versteckt");
+          document.getElementById("team2").classList.remove("versteckt");
+          layout.classList.add("hide-edit-buttons");
+          inSettings = false;
+        }
+
+        if (component === "einstellung") {
+          document.getElementById("buttonrow").classList.add("versteckt");
+          document.getElementById("spielenbutton").classList.remove("versteckt");
+          document.getElementById("inputTeam1").classList.remove("versteckt");
+          document.getElementById("inputTeam2").classList.remove("versteckt");
+          document.getElementById("team1").classList.add("versteckt");
+          document.getElementById("team2").classList.add("versteckt");
+          layout.classList.remove("hide-edit-buttons");
+          if (selectedBecher) {
+            document.getElementById(selectedBecher).classList.remove("selectedBecher");
+          }
+          inSettings = true;
+        }
+      }
+
+      // Initialzustand setzen
+      showUI("einstellung");
+
+      // Becher-Logik für + / - Buttons
+      document.querySelectorAll(".row").forEach((row) => {
+        const becher = Array.from(row.querySelectorAll(".becher"));
+        const btnMinus = row.querySelector("button:first-child");
+        const btnPlus = row.querySelector("button:last-child");
+
+        btnMinus.addEventListener("click", () => {
+          const visibleBecher = becher.filter(
+            (b) => b.style.display !== "none"
+          );
+          if (visibleBecher.length > 0) {
+            visibleBecher[visibleBecher.length - 1].style.display = "none";
+          }
+        });
+
+        btnPlus.addEventListener("click", () => {
+          const visibleBecher = becher.filter(
+            (b) => b.style.display !== "none"
+          );
+          const hiddenBecher = becher.filter((b) => b.style.display === "none");
+          if (visibleBecher.length < 4 && hiddenBecher.length > 0) {
+            hiddenBecher[0].style.display = "block";
+          }
+        });
+      });
+
+      function setTeamname(team) {
+        if (team == 1) {
+          let names = document.getElementById("inputTeam1").value;
+          document.getElementById("team1").innerText = names;
+        } else if (team == 2) {
+          let names = document.getElementById("inputTeam2").value;
+          document.getElementById("team2").innerText = names;
+        }
+      }
+      
+      function selectBecher(becher) {
+        if (inSettings) {
+          return;
+        }
+        if (selectedBecher == becher) {
+          document.getElementById(becher).classList.remove("selectedBecher");
+        } else {
+          if (selectedBecher) {
+            document.getElementById(selectedBecher).classList.remove("selectedBecher");
+          }
+          selectedBecher = becher;
+          document.getElementById(becher).classList.add("selectedBecher");
+        }
+      }
+
+      let getroffeneBecher = [];
+      function treffer() {
+        if (!selectedBecher) {
+          return;
+        }
+        if (getroffeneBecher.includes(selectedBecher)) {
+          return;
+        }
+        getroffeneBecher.push(selectedBecher);
+        document.getElementById(selectedBecher).classList.remove("selectedBecher");
+        document.getElementById(selectedBecher).classList.add("getroffenerBecher");
+        selectedBecher = "";
+        randomText = popUpTexte[Math.floor(Math.random() * popUpTexte.length)];
+        showPopup(randomText);
+      }
+
+      function refillBecher() {
+        if (!(getroffeneBecher.includes(selectedBecher))) {
+          return;
+        }
+          getroffeneBecher = getroffeneBecher.filter(item => item !== selectedBecher);
+          document.getElementById(selectedBecher).classList.remove("getroffenerBecher");
+          document.getElementById(selectedBecher).classList.remove("selectedBecher");
+          selectedBecher = "";
+      }
+
+      function showPopup(text) {
+        document.getElementById("popup-text").innerText = text;
+        document.getElementById("popup").classList.remove("versteckt");
+      }
+
+      function closePopup() {
+        document.getElementById("popup").classList.add("versteckt");
+      }
+
+    </script>
+  </body>
+</html>
