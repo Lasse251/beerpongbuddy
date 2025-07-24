@@ -123,21 +123,23 @@
     <script>
       let inSettings = true;
       let selectedBecher;
-      let popUpTexte = ["Ihr müsst die nächsten drei 3 Würfe mit der schwachen Hand werfen!",
+      let popUpTexte = [
+                        "Ihr müsst die nächsten drei Würfe mit der schwachen Hand werfen!",
                         "Jeder aus dem Team muss beim nächsten Wurf einen Trickshot machen!",
-                        "Dieses Bier muss auf jeden Fall auf Ex runtern! Wird abgesetzt, darf das gegnerische Team 4x als Strafe Werfen!",
-                        "Freibier! Trink das Bier aus, befülle es erneut und stelle es wieder an die Stelle!",
-                        "Underdog! Das Team mit weniger Bechern darf bei ihrem nächsten Wurf doppelt werfen. Habt ihr 2 Bälle -> 4x Werfen.",
+                        "Dieses Bier muss auf jeden Fall auf Ex getrunken werden! Wird abgesetzt, darf das gegnerische Team viermal als Strafe werfen!",
+                        "Freibier! Trink das Bier aus, befülle es erneut und stelle es wieder an dieselbe Stelle!",
+                        "Underdog! Das Team mit weniger Bechern darf beim nächsten Wurf doppelt werfen. Habt ihr zwei Bälle → viermal werfen.",
                         "Schicksalswurf! Wenn der nächste Becher getroffen wird, trinkt das Gegnerteam doppelt.",
                         "Challenge accepted! Beim nächsten Wurf nur rückwärts über die Schulter werfen – beide Teams!",
                         "Augen zu und durch! Der nächste Wurf muss blind erfolgen.",
-                        "Weitwurf! Gehe 2 Meter zurück beim nächsten Wurf. Viel Glück!",
-                        "Fieser Fremdwurf! Ein Spieler aus dem Gegnerteam wirft. Trift er, müsst ihr das Bier trinken, neu befüllen und an die selbe Stelle zurück stellen.",
+                        "Weitwurf! Gehe zwei Meter zurück beim nächsten Wurf. Viel Glück!",
+                        "Fieser Fremdwurf! Ein Spieler aus dem Gegnerteam wirft. Trifft er, müsst ihr das Bier trinken, neu befüllen und an dieselbe Stelle zurückstellen.",
                         "VAR! Der Bierpong-Schiri hat einen Ellbogen über der Kante gesehen. Der Wurf muss wiederholt werden.",
-                        "Wiederbelebung! Das Team, welches getroffen hat, darf ein Bier wieder hinstellen. Sind noch alle Biere, ist das jetzt so wie alkoholfreies Bier - sinnlos.",
-                        "Formationswechsel! Das Team, welches getroffen hat, darf 2 Biere umstellen.",
-                        "Volltreffer! Alle Biere aus der Reihe müssen getrunken werden. Ist es nur eins - GLücl! Sind es vier - Pech!"
-                      ]
+                        "Wiederbelebung! Das Team, das getroffen hat, darf ein Bier wieder aufstellen. Sind noch alle Becher da, ist das jetzt wie alkoholfreies Bier – sinnlos.",
+                        "Formationswechsel! Das Team, das getroffen hat, darf zwei Becher umstellen.",
+                        "Volltreffer! Alle Becher aus der Reihe müssen getrunken werden. Ist es nur einer – Glück! Sind es vier – Pech!"
+                      ];
+
 
       function showUI(component) {
         const layout = document.querySelector(".layouteinstellungen");
